@@ -1,0 +1,491 @@
+<!-- Save as index.html (single-file site) -->
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>REDNET — Single-file Site (Updated Home)</title>
+
+  <!-- Fonts + icons -->
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer"/>
+
+  <style>
+    :root{
+      --red-900:#7a0f12;
+      --red-700:#b71b1f;
+      --bg:#fff8f8;
+      --muted:#8b8b8b;
+      --card:#fff5f5;
+      --shadow: 0 6px 18px rgba(20,20,20,0.06);
+      --maxw:1200px;
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      font-family: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, Arial;
+      background:var(--bg);
+      color:#222;
+      -webkit-font-smoothing:antialiased;
+      line-height:1.45;
+    }
+    .container{max-width:var(--maxw);margin:0 auto;padding:20px}
+    /* header */
+    header{background:var(--red-900);color:#fff;position:sticky;top:0;z-index:40}
+    .header-inner{max-width:var(--maxw);margin:0 auto;padding:12px 20px;display:flex;align-items:center;gap:20px;justify-content:space-between}
+    .brand{display:flex;align-items:center;gap:12px;font-weight:700;letter-spacing:1px;font-size:20px}
+    .logo-sq{width:36px;height:36px;border-radius:8px;display:flex;align-items:center;justify-content:center;background:rgba(255,255,255,0.08)}
+    nav ul{list-style:none;display:flex;gap:22px;margin:0;padding:0;align-items:center}
+    nav a{color:rgba(255,255,255,0.95);text-decoration:none;font-weight:600}
+    .menu-btn{display:none;background:transparent;border:0;color:white;font-size:20px}
+    /* breadcrumbs */
+    .breadcrumbs{background:#f7ead7;padding:10px 18px;border-top:1px solid rgba(0,0,0,0.03)}
+    .breadcrumbs small{color:#8b6f56;font-weight:600}
+    /* sections */
+    main.section{padding:34px 20px}
+    .hidden{display:none}
+    /* hero (NEW layout) */
+    .hero-grid{display:grid;grid-template-columns:1fr 460px;gap:36px;align-items:flex-start}
+    .hero-left h1{font-family:"Playfair Display",serif;font-size:64px;margin:0;color:#222;line-height:1;font-weight:700}
+    .hero-left p{color:var(--muted);margin-top:14px;max-width:720px;font-size:18px}
+    .cta{display:inline-block;margin-top:18px;background:var(--red-700);color:white;padding:14px 22px;border-radius:10px;text-decoration:none;font-weight:700;box-shadow:0 10px 20px rgba(183,27,31,0.18)}
+    /* small pager dots under CTA */
+    .cta-dots{display:flex;gap:8px;margin-top:12px;align-items:center}
+    .cta-dot{width:10px;height:10px;border-radius:50%;display:inline-block;background:#e6dddd}
+    .cta-dot.active{background:var(--red-700)}
+    /* big right card */
+    .hero-right-card{
+      width:420px;
+      height:320px;
+      background:#fff;
+      border-radius:20px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      box-shadow:0 18px 40px rgba(200,30,30,0.06);
+      border:1px solid rgba(0,0,0,0.03);
+      padding:24px;
+    }
+    /* big stat cards */
+    .stat-row{display:flex;gap:18px;margin-top:28px;flex-wrap:wrap}
+    .stat-card{
+      background: linear-gradient(180deg, rgba(255,244,244,0.85), rgba(255,245,245,0.98));
+      border-radius:12px;
+      padding:22px;
+      box-shadow:0 10px 26px rgba(200,20,20,0.04);
+      border:1px solid rgba(216, 28, 28, 0.03);
+      flex:1; min-width:260px; max-width:520px;
+    }
+    .stat-card .label{font-size:13px;color:var(--muted);text-align:center}
+    .stat-card .value{font-size:40px;color:var(--red-700);font-weight:800;text-align:center;margin-top:14px}
+    /* rest */
+    .feature-grid{margin-top:26px;display:grid;grid-template-columns:repeat(4,1fr);gap:18px}
+    .card{background:white;padding:18px;border-radius:12px;text-align:center;box-shadow:0 10px 30px rgba(25,25,25,0.04);transition:transform .18s ease,box-shadow .18s ease;cursor:pointer;border:1px solid rgba(0,0,0,0.03)}
+    .card:hover{transform:translateY(-6px);box-shadow:0 18px 40px rgba(22,22,22,0.06)}
+    .card .icon{width:64px;height:64px;border-radius:8px;background:#fff0f0;display:inline-flex;align-items:center;justify-content:center;font-size:26px;box-shadow:0 6px 14px rgba(0,0,0,0.04)}
+    .card h4{margin:12px 0 0 0;font-size:14px;font-weight:600;color:#333}
+    /* form card */
+    .form-card{width:600px;max-width:92%;margin:40px auto;background:#f2e6de;border-radius:18px;padding:34px;box-shadow:0 18px 30px rgba(0,0,0,0.12);border:2px solid rgba(0,0,0,0.08);text-align:center}
+    .input{display:block;width:100%;padding:12px 14px;margin:12px 0;border-radius:8px;border:0;box-shadow:0 6px 0 rgba(0,0,0,0.06) inset;font-size:15px}
+    .btn{display:inline-block;background:var(--red-700);color:white;padding:12px 26px;border-radius:6px;border:0;margin-top:12px;font-weight:700}
+    /* footer */
+    footer{margin-top:40px;background:#efefef;padding:26px 18px;border-top:1px solid rgba(0,0,0,0.03)}
+    .footer-grid{max-width:var(--maxw);margin:0 auto;display:grid;grid-template-columns:1fr 1fr 1fr;gap:20px;align-items:start}
+    /* responsive */
+    @media (max-width:1000px){
+      .hero-grid{grid-template-columns:1fr 360px}
+      .hero-right-card{width:360px;height:260px}
+      .feature-grid{grid-template-columns:repeat(2,1fr)}
+    }
+    @media (max-width:760px){
+      nav ul{display:none}
+      .menu-btn{display:block}
+      .hero-grid{grid-template-columns:1fr}
+      .hero-right-card{width:100%;height:240px;margin-top:18px}
+      .feature-grid{grid-template-columns:1fr}
+      .stat-card{max-width:100%}
+    }
+    .muted{color:var(--muted)}
+    .center{text-align:center}
+    .breadcrumb-small{font-size:13px;color:#8b6f56}
+  </style>
+</head>
+<body>
+  <!-- HEADER -->
+  <header>
+    <div class="header-inner">
+      <div class="brand">
+        <div class="logo-sq" aria-hidden="true"><i class="fa-solid fa-droplet" style="color:white"></i></div>
+        REDNET
+      </div>
+
+      <nav aria-label="Main navigation">
+        <ul>
+          <li><a href="#" data-nav="home">HOME</a></li>
+          <li><a href="#" data-nav="about">ABOUT US</a></li>
+          <li><a href="#" data-nav="dashboard">DASHBOARD</a></li>
+          <li><a href="#" data-nav="login">LOG IN</a></li>
+        </ul>
+      </nav>
+
+      <button class="menu-btn" id="mobileToggle" aria-expanded="false" aria-label="Open menu">☰</button>
+    </div>
+
+    <div id="mobileMenu" style="display:none; background:linear-gradient(180deg, rgba(122,15,18,0.95), rgba(122,15,18,0.95)); padding:12px 20px;">
+      <a href="#" data-nav="home" style="display:block;color:white;padding:8px 0;text-decoration:none;font-weight:600">HOME</a>
+      <a href="#" data-nav="about" style="display:block;color:white;padding:8px 0;text-decoration:none;font-weight:600">ABOUT US</a>
+      <a href="#" data-nav="dashboard" style="display:block;color:white;padding:8px 0;text-decoration:none;font-weight:600">DASHBOARD</a>
+      <a href="#" data-nav="login" style="display:block;color:white;padding:8px 0;text-decoration:none;font-weight:600">LOG IN</a>
+    </div>
+  </header>
+
+  <!-- BREADCRUMB -->
+  <div class="breadcrumbs">
+    <div class="container">
+      <small class="breadcrumb-small" id="breadcrumb">HOME &gt;</small>
+    </div>
+  </div>
+
+  <!-- MAIN -->
+  <main class="container">
+    <!-- ===== NEW HOME SECTION (replaced) ===== -->
+    <section id="home" class="section">
+      <div class="hero-grid">
+        <!-- left column -->
+        <div class="hero-left">
+          <h1>Donate Blood, Save Lives</h1>
+          <p>Make a life-changing Impact: Donate blood, save lives. Together, we can heal communities.</p>
+
+          <a class="cta" href="#" id="becomeBtn">Become a Donor</a>
+
+          <!-- pager dots under CTA -->
+          <div class="cta-dots" aria-hidden="true">
+            <span class="cta-dot active"></span>
+            <span class="cta-dot"></span>
+            <span class="cta-dot"></span>
+          </div>
+
+          <!-- stats -->
+          <div class="stat-row" aria-hidden="false">
+            <div class="stat-card">
+              <div class="label">No. of New Donors Registered</div>
+              <div class="value" id="statDonors" data-target="19697">0</div>
+            </div>
+
+            <div class="stat-card">
+              <div class="label">No. of Blood Units Collected</div>
+              <div class="value" id="statUnits" data-target="14100">0</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- right column -->
+        <div style="display:flex;justify-content:flex-end;">
+          <div class="hero-right-card" role="img" aria-label="heart illustration">
+            <!-- illustration (SVG) -->
+            <svg viewBox="0 0 200 200" width="220" height="200" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+              <defs><linearGradient id="hgrad" x1="0" x2="1"><stop offset="0" stop-color="#ff7b7b"/><stop offset="1" stop-color="#e63946"/></linearGradient></defs>
+              <g transform="translate(100,100)">
+                <path d="M0 -40 C20 -60 60 -60 60 -20 C60 10 20 40 0 60 C-20 40 -60 10 -60 -20 C-60 -60 -20 -60 0 -40 Z" fill="url(#hgrad)"/>
+                <rect x="-12" y="-6" width="24" height="12" rx="2" fill="#fff"/>
+                <rect x="-6" y="-12" width="12" height="24" rx="2" fill="#fff"/>
+              </g>
+            </svg>
+          </div>
+        </div>
+      </div>
+
+      <!-- features (kept under) -->
+      <section style="margin-top:36px">
+        <h3 class="center">Blood Donation Drive</h3>
+        <div class="feature-grid" style="margin-top:18px">
+          <div class="card" data-page="search">
+            <div class="icon"><i class="fa-solid fa-magnifying-glass"></i></div>
+            <h4>Blood Availability Search</h4>
+          </div>
+
+          <div class="card" data-page="directory">
+            <div class="icon"><i class="fa-solid fa-hospital"></i></div>
+            <h4>Blood Center Directory</h4>
+          </div>
+
+          <div class="card" data-page="camps">
+            <div class="icon"><i class="fa-solid fa-people-roof"></i></div>
+            <h4>Blood Donation Camps</h4>
+          </div>
+
+          <div class="card" data-page="donorLogin">
+            <div class="icon"><i class="fa-solid fa-user-doctor"></i></div>
+            <h4>Donor Login</h4>
+          </div>
+        </div>
+      </section>
+    </section>
+    <!-- ===== END NEW HOME SECTION ===== -->
+
+    <!-- OTHER SECTIONS (kept) -->
+    <section id="about" class="section hidden">
+      <div style="display:flex;gap:18px;align-items:flex-start;flex-wrap:wrap">
+        <div style="flex:1;min-width:280px">
+          <h3 class="center">About RedNet</h3>
+          <p>We built the Online Blood Donation & Emergency Request System to make finding and donating blood faster and easier. Our platform connects donors, patients, and hospitals.</p>
+          <p class="muted">“Every donor is a hero, and every drop saves a life.”</p>
+          <h4 style="margin-top:18px">Our Mission</h4>
+          <p>Build an accessible, community-driven platform that connects donors, recipients, and hospitals in real time.</p>
+        </div>
+        <div style="width:320px">
+          <svg viewBox="0 0 200 260" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
+            <defs><linearGradient id="rb" x1="0" x2="1"><stop offset="0" stop-color="#ff6b6b"/><stop offset="1" stop-color="#e63946"/></linearGradient></defs>
+            <g transform="translate(100,80)"><circle cx="0" cy="40" r="70" fill="url(#rb)" opacity="0.18"/></g>
+          </svg>
+        </div>
+      </div>
+    </section>
+
+    <section id="search" class="section hidden">
+      <h2 class="center">Learn About Donation</h2>
+      <div style="display:flex;gap:12px;flex-wrap:wrap;justify-content:center;margin-top:18px">
+        <button class="btn small" onclick="alert('demo')">A+</button>
+        <button class="btn small" onclick="alert('demo')">O+</button>
+        <button class="btn small" onclick="alert('demo')">B+</button>
+        <button class="btn small" onclick="alert('demo')">AB+</button>
+        <button class="btn small" onclick="alert('demo')">A-</button>
+      </div>
+      <div style="margin-top:22px;display:flex;gap:22px;justify-content:center;flex-wrap:wrap">
+        <div style="background:#ffd;padding:18px;border-radius:8px;min-width:260px">You can take from<br><strong>O+ O- A+ A-</strong></div>
+        <div style="background:#dff0ff;padding:18px;border-radius:8px;min-width:260px">You can give to<br><strong>A+ AB+</strong></div>
+      </div>
+    </section>
+
+    <section id="directory" class="section hidden">
+      <h2 class="center">Blood Center Directory</h2>
+      <p class="center muted">Demo listing of nearby centers.</p>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:18px;margin-top:20px">
+        <div style="background:white;padding:16px;border-radius:12px;box-shadow:0 8px 18px rgba(0,0,0,0.05)">
+          <h4>City Blood Bank</h4>
+          <p class="muted">Chennai — 123, Example St. Tel: 99999 11111</p>
+        </div>
+        <div style="background:white;padding:16px;border-radius:12px;box-shadow:0 8px 18px rgba(0,0,0,0.05)">
+          <h4>General Hospital Blood Center</h4>
+          <p class="muted">Chennai — 78, Sample Rd. Tel: 99999 22222</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="camps" class="section hidden">
+      <h2 class="center">Blood Donation Camps</h2>
+      <div style="display:flex;gap:18px;flex-wrap:wrap;justify-content:center;margin-top:18px">
+        <div style="background:white;padding:18px;border-radius:12px;max-width:520px;box-shadow:0 8px 20px rgba(0,0,0,0.05)">
+          <h4>Community Camp - District Hall</h4>
+          <p class="muted">20 Nov 2025 — 9:00 AM to 4:00 PM</p>
+          <a href="#" style="color:var(--red-700)">Register</a>
+        </div>
+        <div style="background:white;padding:18px;border-radius:12px;max-width:520px;box-shadow:0 8px 20px rgba(0,0,0,0.05)">
+          <h4>University Health Center</h4>
+          <p class="muted">5 Dec 2025 — 10:00 AM to 3:00 PM</p>
+          <a href="#" style="color:var(--red-700)">Register</a>
+        </div>
+      </div>
+    </section>
+
+    <section id="dashboard" class="section hidden">
+      <h2 class="center">What do you need right now?</h2>
+      <div style="display:flex;gap:18px;justify-content:center;flex-wrap:wrap;margin-top:26px">
+        <div style="min-width:220px;background:#f7eae0;padding:28px;border-radius:12px;box-shadow:0 8px 18px rgba(0,0,0,0.06);text-align:center;cursor:pointer" data-page="needBlood">NEED BLOOD</div>
+        <div style="min-width:220px;background:#f7eae0;padding:28px;border-radius:12px;box-shadow:0 8px 18px rgba(0,0,0,0.06);text-align:center;cursor:pointer" data-page="donorLogin">DONATE BLOOD</div>
+        <div style="min-width:220px;background:#f7eae0;padding:28px;border-radius:12px;box-shadow:0 8px 18px rgba(0,0,0,0.06);text-align:center;cursor:pointer" data-page="hospitalLogin">HOSPITAL LOGIN</div>
+      </div>
+    </section>
+
+    <section id="login" class="section hidden">
+      <h2 class="center">Log In</h2>
+      <p class="center muted">Choose how you'd like to sign in.</p>
+      <div style="display:flex;gap:18px;justify-content:center;margin-top:24px;flex-wrap:wrap">
+        <button class="btn" data-page="donorLogin">Donor</button>
+        <button class="btn" data-page="hospitalLogin">Hospital</button>
+        <button class="btn" data-page="needBlood">Request Blood</button>
+      </div>
+    </section>
+
+    <section id="donorLogin" class="section hidden">
+      <div class="form-card">
+        <h2>Blood Donor Login</h2>
+        <input class="input" placeholder="username" id="duser">
+        <input class="input" placeholder="password" id="dpass" type="password">
+        <input class="input" placeholder="phone number" id="dphone">
+        <button class="btn" onclick="alert('demo sign in')">SIGN IN</button>
+        <div style="display:flex;justify-content:space-between;margin-top:12px;font-size:13px;color:#222">
+          <a href="#">Forget your Password?</a><a href="#">Create an Account</a>
+        </div>
+      </div>
+    </section>
+
+    <section id="hospitalLogin" class="section hidden">
+      <div class="form-card">
+        <h2>Hospital Login</h2>
+        <input class="input" placeholder="username" id="huser">
+        <input class="input" placeholder="password" id="hpass" type="password">
+        <input class="input" placeholder="hospital name" id="hname">
+        <button class="btn" onclick="alert('demo sign in')">SIGN IN</button>
+        <div style="display:flex;justify-content:space-between;margin-top:12px;font-size:13px;color:#222">
+          <a href="#">Forget your Password?</a><a href="#">Create an Account</a>
+        </div>
+      </div>
+    </section>
+
+    <section id="needBlood" class="section hidden">
+      <div class="form-card">
+        <h2>Blood Request Login</h2>
+        <input class="input" placeholder="blood type" id="rtype">
+        <input class="input" placeholder="password" id="rpass" type="password">
+        <input class="input" placeholder="phone number" id="rphone">
+        <button class="btn" onclick="alert('demo request')">SIGN IN</button>
+        <div style="display:flex;justify-content:space-between;margin-top:12px;font-size:13px;color:#222">
+          <a href="#">Forget your Password?</a><a href="#">Create an Account</a>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-grid" style="max-width:var(--maxw);margin:0 auto;align-items:start;">
+      <div>
+        <div style="display:flex;gap:12px;align-items:center">
+          <div style="width:44px;height:44px;border-radius:8px;background:var(--red-900);display:flex;align-items:center;justify-content:center;color:white"><i class="fa-solid fa-droplet"></i></div>
+          <div style="font-weight:700">REDNET</div>
+        </div>
+        <div style="color:#666;font-size:14px;margin-top:12px">Contact Us<br>Chennai, Tamilnadu<br><a href="mailto:rednet@gmail.com" style="color:inherit;text-decoration:underline">rednet@gmail.com</a></div>
+      </div>
+
+      <div>
+        <h5>Links</h5>
+        <ul style="list-style:none;padding:0;margin:0;color:#555;line-height:1.9">
+          <li><a href="#" data-nav="about">About</a></li>
+          <li><a href="#" data-nav="dashboard">Dashboard</a></li>
+          <li><a href="#" data-nav="home">Home</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <h5>Subscribe</h5>
+        <div style="margin-top:6px">
+          <input id="subEmail" type="email" placeholder="Email" aria-label="Subscribe email" style="padding:10px;border-radius:6px;border:1px solid #ddd;width:100%;font-size:14px">
+          <div style="margin-top:8px"><button id="subBtn" class="btn">Subscribe</button></div>
+        </div>
+        <div style="margin-top:10px;color:#777;font-size:13px">© 2025. All Rights reserved</div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    (function(){
+      const $ = (s, r=document) => r.querySelector(s);
+      const $$ = (s, r=document) => Array.from(r.querySelectorAll(s));
+
+      // show/hide sections
+      function showSection(id, push=false){
+        $$('.section').forEach(s => s.classList.add('hidden'));
+        const t = document.getElementById(id);
+        if(t) t.classList.remove('hidden');
+        const bc = document.getElementById('breadcrumb');
+        bc.textContent = (id === 'home') ? 'HOME >' : `HOME > ${id.replace(/([A-Z])/g,' $1').toUpperCase()} >`;
+        if(push) history.pushState({page:id}, '', '#'+id);
+        window.scrollTo({top:0, behavior:'instant'});
+        // when showing home run hero counters
+        if(id === 'home') runHeroCounters();
+      }
+
+      // nav links
+      $$('[data-nav]').forEach(a => {
+        a.addEventListener('click', e => {
+          e.preventDefault();
+          const dest = a.dataset.nav || 'home';
+          showSection(dest, true);
+          document.getElementById('mobileMenu').style.display = 'none';
+        });
+      });
+
+      // data-page clickable elements
+      $$('[data-page]').forEach(el => el.addEventListener('click', ()=> showSection(el.dataset.page, true)));
+
+      // mobile toggle
+      const mt = document.getElementById('mobileToggle');
+      const mm = document.getElementById('mobileMenu');
+      if(mt) mt.addEventListener('click', ()=> {
+        const shown = mm.style.display === 'block';
+        mm.style.display = shown ? 'none' : 'block';
+        mt.setAttribute('aria-expanded', String(!shown));
+      });
+
+      // init page
+      const start = location.hash ? location.hash.replace('#','') : 'home';
+      showSection(start, false);
+
+      // little CTA dots visual (static in this design)
+      $$('.cta-dot').forEach((d,i)=> d.addEventListener('click', ()=> {
+        $$('.cta-dot').forEach(x=>x.classList.remove('active'));
+        d.classList.add('active');
+      }));
+
+      // become donor button
+      $('#becomeBtn').addEventListener('click', e => { e.preventDefault(); showSection('donorLogin', true); });
+
+      // subscribe demo
+      const subBtn = document.getElementById('subBtn');
+      if(subBtn) subBtn.addEventListener('click', ()=>{
+        const v = document.getElementById('subEmail').value;
+        if(!v || v.indexOf('@')<0){ alert('Enter a valid email (demo)'); return; }
+        subBtn.textContent = 'Subscribed'; subBtn.disabled = true;
+      });
+
+      /* HERO COUNTERS: attempt backend, fallback to data-target */
+      function animateCount(el, target, duration=1400){
+        const start = 0, range = target - start, t0 = performance.now();
+        function step(now){
+          const elapsed = now - t0;
+          const progress = Math.min(elapsed / duration, 1);
+          const ease = 1 - (1 - progress) * (1 - progress);
+          el.textContent = Math.floor(start + range * ease).toLocaleString();
+          if(progress < 1) requestAnimationFrame(step);
+        }
+        requestAnimationFrame(step);
+      }
+
+      function runHeroCounters(){
+        const dEl = document.getElementById('statDonors');
+        const uEl = document.getElementById('statUnits');
+        if(!dEl || !uEl) return;
+        // attempt backend
+        fetch('/api/counters').then(r => {
+          if(!r.ok) throw new Error('no backend');
+          return r.json();
+        }).then(json => {
+          const donors = Number(json.donors) || Number(dEl.dataset.target) || 0;
+          const units  = Number(json.units)  || Number(uEl.dataset.target) || 0;
+          animateCount(dEl, donors, 1400);
+          setTimeout(()=> animateCount(uEl, units, 1400), 300);
+        }).catch(_ => {
+          const donors = Number(dEl.dataset.target) || 0;
+          const units  = Number(uEl.dataset.target) || 0;
+          animateCount(dEl, donors, 1200);
+          setTimeout(()=> animateCount(uEl, units, 1200), 300);
+        });
+      }
+
+      // run on load
+      runHeroCounters();
+
+      // keyboard quick navigation for testing
+      window.addEventListener('keydown', (e) => {
+        if(e.key >= '1' && e.key <= '9'){
+          const map = { '1':'home','2':'about','3':'search','4':'directory','5':'camps','6':'dashboard','7':'login','8':'donorLogin','9':'hospitalLogin' };
+          if(map[e.key]) showSection(map[e.key], true);
+        }
+      });
+    })();
+  </script>
+</body>
+</html>
